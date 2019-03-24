@@ -1,7 +1,7 @@
 import factory
 
 from app import db
-from database import User
+from app.database import User
 
 
 class SQLAlchemyModelFactory(factory.Factory):

@@ -2,8 +2,8 @@ from functools import wraps
 
 from flask import request, g
 
-from common.errors import error_response
-from database import User
+from app.common.errors import error_response
+from app.database import User
 
 
 def login_required(f):

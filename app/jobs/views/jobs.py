@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request, g
 
-from auth import login_required
-from common.schemas import JobSchema
-from database import Job, Match
+from app.auth import login_required
+from app.common.schemas import JobSchema
+from app.database import Job, Match
 
 jobs_blueprint = Blueprint('jobs', __name__)
 

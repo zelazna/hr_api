@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
-from common import BooleanConverter
+from app.common import BooleanConverter
 from config import Config
 
 db = SQLAlchemy()
@@ -21,8 +21,8 @@ def create_app(config_class=Config):
 
     migrate.init_app(app, db)
     CORS(app)
-    from auth.views import auth_blueprint
-    from jobs.views import jobs_blueprint, matchs_blueprint
+    from app.auth.views import auth_blueprint
+    from app.jobs.views import jobs_blueprint, matchs_blueprint
 
     app.url_map.converters['bool'] = BooleanConverter
     app.register_blueprint(auth_blueprint, url_prefix='/auth')

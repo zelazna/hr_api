@@ -4,10 +4,10 @@ from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 
 from app import db
-from auth import login_required
-from common import MatchSchema
-from common.errors import error_response
-from database import Match, Job
+from app.auth import login_required
+from app.common import MatchSchema
+from app.common.errors import error_response
+from app.database import Match, Job
 
 matchs_blueprint = Blueprint('matchs', __name__)
 
