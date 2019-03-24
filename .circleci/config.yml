@@ -14,6 +14,8 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.4
+        environment:
+          POSTGRES_USER: postgres
 
     working_directory: ~/repo
 
@@ -33,7 +35,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-
+      - run: sudo apt-get update && sudo apt install -y postgresql-client
       - save_cache:
           paths:
             - ./venv
@@ -41,12 +43,14 @@ jobs:
       - run:
           name: create database
           command: |
-            createdb hr_jobs_test
+            psql -c "create database hr_jobs" -h localhost -p 5432 -U postgres
       - run:
           name: run tests
           command: |
             . venv/bin/activate
             pytest
+          environment:
+            SQLALCHEMY_DATABASE_URI: 'postgresql://postgres@localhost:5432/hr_jobs'
 
       - store_artifacts:
           path: test-reports
