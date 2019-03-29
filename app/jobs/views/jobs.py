@@ -10,7 +10,7 @@ jobs_schema = JobSchema(many=True)
 job_schema = JobSchema()
 
 
-@jobs_blueprint.route('/', methods=('GET',))
+@jobs_blueprint.route('/jobs', methods=('GET',))
 @login_required
 def get_unmatched():
     user_matchs = [match.job_id for match in Match.query.filter_by(user_id=g.user.id)]
@@ -19,14 +19,14 @@ def get_unmatched():
     return jsonify(response[0])
 
 
-@jobs_blueprint.route('/<int:job_id>', methods=('GET',))
+@jobs_blueprint.route('/jobs/<int:job_id>', methods=('GET',))
 @login_required
 def get_one(job_id):
     response = job_schema.dump(Job.query.get_or_404(job_id))
     return jsonify(response[0])
 
 
-@jobs_blueprint.route('/matched/<bool:match_type>', methods=('GET',))
+@jobs_blueprint.route('/jobs/matched/<bool:match_type>', methods=('GET',))
 @login_required
 def get_matched(match_type):
     user_matchs = [match.job_id for match in Match.query.filter_by(user_id=g.user.id, interest=match_type)]

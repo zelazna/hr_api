@@ -26,6 +26,6 @@ def create_app(config_class=Config):
 
     app.url_map.converters['bool'] = BooleanConverter
     app.register_blueprint(auth_blueprint, url_prefix='/auth')
-    app.register_blueprint(jobs_blueprint, url_prefix='/jobs')
+    app.register_blueprint(jobs_blueprint)
     app.register_blueprint(matchs_blueprint)
     return app
